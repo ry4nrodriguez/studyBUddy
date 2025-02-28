@@ -26,7 +26,7 @@ This project is a fork of [Spots](https://github.com/notAkki/spots.git) by notAk
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/my-study-spots.git
+   git clone https://github.com/ry4nrodriguez/my-study-spots.git
    cd my-study-spots
    ```
 
