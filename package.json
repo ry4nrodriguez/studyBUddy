@@ -10,10 +10,10 @@
     "build:frontend": "cd frontend && npm run build",
     "start:frontend": "cd frontend && npm run start"
   },
-  "author": "Your Name",
+  "author": "Ryan Rodriguez",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/my-study-spots.git"
+    "url": "https://github.com/ry4nrodriguez/my-study-spots.git"
   }
 } 
