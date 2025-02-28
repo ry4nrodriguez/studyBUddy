@@ -4,9 +4,9 @@
   "description": "A web application to help students find open classrooms for studying",
   "private": true,
   "scripts": {
-    "install:all": "npm install && cd frontend && npm install && cd ../backend && pip install -r requirements.txt",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && python3 -m venv ../venv && source ../venv/bin/activate && pip install -r requirements.txt",
     "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "cd backend && python app.py",
+    "dev:backend": "source venv/bin/activate && cd backend && python3 app.py",
     "build:frontend": "cd frontend && npm run build",
     "start:frontend": "cd frontend && npm run start"
   },
