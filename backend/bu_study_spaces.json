@@ -1,0 +1,209 @@
+[
+  {
+    "name": "Mugar Memorial Library",
+    "code": "MUG",
+    "coordinates": [-71.108891, 42.350769],
+    "address": "771 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "1st Floor",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "23:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "2nd Floor Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "23:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "George Sherman Union",
+    "code": "GSU",
+    "coordinates": [-71.109781, 42.350941],
+    "address": "775 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Basement Study Lounge",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "23:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Photonics Center",
+    "code": "PHO",
+    "coordinates": [-71.108323, 42.349211],
+    "address": "8 St Mary's St, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "9th Floor Collaboration Space",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Questrom School of Business",
+    "code": "QSB",
+    "coordinates": [-71.100392, 42.349731],
+    "address": "595 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Hariri Atrium",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "23:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "4th Floor Graduate Study Rooms",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Kilachand Center",
+    "code": "KIL",
+    "coordinates": [-71.105935, 42.347539],
+    "address": "610 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "1st Floor Collaboration Space",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "21:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "College of Arts & Sciences",
+    "code": "CAS",
+    "coordinates": [-71.106708, 42.350941],
+    "address": "725 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "CAS Think Tank",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "CAS 211",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "18:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yawkey Center for Student Services",
+    "code": "YAW",
+    "coordinates": [-71.106257, 42.350311],
+    "address": "100 Bay State Road, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Study Lounge",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "17:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ingalls Engineering Resource Center",
+    "code": "ERC",
+    "coordinates": [-71.104154, 42.349456],
+    "address": "44 Cummington Mall, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Main Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+] 

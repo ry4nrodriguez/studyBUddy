@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
 from datetime import datetime
-import requests
 import json
 import math
+import os
 
 app = Flask(__name__)
 
@@ -39,8 +39,6 @@ def test():
 def get_open_classrooms():
     user_lat = 0
     user_lng = 0
-    # user_lat = 43.4695
-    # user_lng = -80.5425
 
     if request.method == 'GET':
         print("get method")
@@ -57,35 +55,29 @@ def get_open_classrooms():
 
         if user_lat is None or user_lng is None:
             return jsonify({"error": "Invalid location data. 'lat' and 'lng' are required."}), 400
-        
-    # print(f"Received user location: lat = {user_lat}, lng = {user_lng}")
-
-    r = requests.get('https://portalapi2.uwaterloo.ca/v2/map/OpenClassrooms')
-    data = r.json()
-
-    # print(r.status_code)
-    # print (data)
+    
+    # Load Boston University data from JSON file
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    bu_data_path = os.path.join(current_dir, 'bu_study_spaces.json')
+    
+    with open(bu_data_path, 'r') as f:
+        bu_data = json.load(f)
 
     current_time = datetime.now().time()
-
     building_info_list = []
 
-    for feature in data.get('data', {}).get('features', []):
-        building_name = feature['properties']['buildingName']
-        building_code = feature['properties']['buildingCode']
-        building_coords = feature['geometry']['coordinates']
+    for building in bu_data:
+        building_name = building['name']
+        building_code = building['code']
+        building_coords = building['coordinates']  # [longitude, latitude]
         
-        open_classroom_slots = json.loads(feature['properties']['openClassroomSlots'])
         rooms = {}
-
         building_status = "unavailable"
 
-        for room in open_classroom_slots.get('data', []):
+        for room in building['rooms']:
             room_number = room['roomNumber']
-            schedule = room['Schedule']
-
-            # print (room_number + " " + str(schedule))
-
+            schedule = room['schedule']
+            
             if schedule:
                 slots = schedule[0]['Slots'] if schedule else []
                 slots_with_status = []
@@ -95,8 +87,6 @@ def get_open_classrooms():
                     end_time = slot['EndTime']
 
                     status = get_slot_status(current_time, start_time, end_time)
-
-                    # print (room_number + " " + start_time + " " + end_time + " " + status)
 
                     if building_status != "available" and status == "available":
                         building_status = "available"
@@ -121,7 +111,7 @@ def get_open_classrooms():
             "building_status": building_status,
             "rooms": rooms,
             "coords": building_coords,
-            "distance": haversine(user_lat, user_lng, building_coords[1], building_coords[0]) if user_lat  != 0 and user_lng != 0 else 0
+            "distance": haversine(user_lat, user_lng, building_coords[1], building_coords[0]) if user_lat != 0 and user_lng != 0 else 0
         }
 
         if rooms:

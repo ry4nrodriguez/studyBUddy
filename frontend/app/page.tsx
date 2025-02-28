@@ -109,12 +109,15 @@ export default function Home() {
         <main className="flex flex-col sm:flex-row sm:gap-4 h-screen">
             <div className="basis-2/5 sm:h-full order-last sm:order-first py-4 sm:px-0 sm:py-2 overflow-hidden sm:flex sm:flex-col">
                 <div className="w-full h-20 pl-8 pr-4 hidden sm:flex sm:justify-between items-center">
-                    <Image
-                        src={"/logo.png"}
-                        width={200}
-                        height={200}
-                        alt="Logo"
-                    />
+                    <div className="flex items-center">
+                        <Image
+                            src={"/logo.png"}
+                            width={50}
+                            height={50}
+                            alt="Logo"
+                        />
+                        <h1 className="text-2xl font-bold ml-2 text-scarlet-500">Study BUddy</h1>
+                    </div>
                     <Popover>
                         <PopoverTrigger className="">
                             <svg
@@ -178,12 +181,15 @@ export default function Home() {
                 </div>
                 <ScrollArea className="h-full">
                     <div className="w-full h-20 pl-8 pr-8 flex sm:hidden justify-between items-center">
-                        <Image
-                            src={"/logo.png"}
-                            width={180}
-                            height={200}
-                            alt="Logo"
-                        />
+                        <div className="flex items-center">
+                            <Image
+                                src={"/logo.png"}
+                                width={40}
+                                height={40}
+                                alt="Logo"
+                            />
+                            <h1 className="text-xl font-bold ml-2 text-scarlet-500">Study BUddy</h1>
+                        </div>
                         <Popover>
                             <PopoverTrigger className="">
                                 <svg

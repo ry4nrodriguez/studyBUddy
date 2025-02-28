@@ -30,11 +30,9 @@ export default function Map({
     const mapRef = useRef<mapboxgl.Map | null>(null);
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
-    const [center, setCenter] = useState<[number, number]>([-80.5425, 43.4695]);
-    const [zoom, setZoom] = useState(16.25);
-    const [pitch, setPitch] = useState(52);
-
-    const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+    const [center, setCenter] = useState<[number, number]>([-71.1097, 42.3505]);
+    const [zoom, setZoom] = useState(15);
+    const [pitch, setPitch] = useState(45);
 
     function getColorByStatus(status: string) {
         switch (status) {
@@ -50,14 +48,12 @@ export default function Map({
     }
 
     useEffect(() => {
-        if (mapboxToken) {
-            mapboxgl.accessToken = mapboxToken;
-        } else {
-            console.error("Mapbox token is not defined");
-        }
-        mapboxToken;
+        if (!mapContainerRef.current) return;
+
+        // Initialize map
+        mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "pk.eyJ1Ijoicnk0bnJvZHJpZ3VleiIsImEiOiJjbTdwNm9vMG0wajczMmlxNGxrZHptODVmIn0.xzq0r5ewGo_Or7vnsgKWyg";
         mapRef.current = new mapboxgl.Map({
-            style: "mapbox://styles/notakki/cm1o3v5kr00bl01pd2k7tho6i",
+            style: "mapbox://styles/mapbox/streets-v11",
             container: mapContainerRef.current as HTMLElement,
             center: center,
             zoom: zoom,
@@ -111,7 +107,6 @@ export default function Map({
 
             new mapboxgl.Marker(e2)
                 .setLngLat([userPos[1], userPos[0]])
-                // .setLngLat([-80.5425, 43.4695])
                 .addTo(mapRef.current);
         }
 

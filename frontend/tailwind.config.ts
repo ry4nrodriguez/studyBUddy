@@ -15,12 +15,16 @@ const config: Config = {
         "bg-amber-400",
         "shadow-xl",
         "shadow-cyan-500/50",
+        "text-scarlet-500",
     ],
     theme: {
         extend: {
             colors: {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
+                scarlet: {
+                    500: "#CC0000", // Boston University Scarlet
+                },
             },
             borderRadius: {
                 lg: "var(--radius)",
