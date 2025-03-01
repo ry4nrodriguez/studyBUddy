@@ -1,10 +1,6 @@
-# BU Study Spots
+# study BUddy
 
-**BU Study Spots** is a web application designed to help Boston University students find open study spaces across campus. When libraries and other common study areas are full, students can use this app to locate available classrooms and study lounges in real-time, offering more options for quiet and productive study spaces on BU's campus.
-
-![alt text](SpotsDemoImage.png)
-
-This project is adapted from [My Study Spots](https://github.com/ry4nrodriguez/my-study-spots.git) by Ryan Rodriguez, which was originally a fork of [Spots](https://github.com/notAkki/spots.git) by notAkki.
+**study BUddy** is a web application designed to help Boston University students find open study spaces across campus. Students can use this web-app to locate available BU spaces in real-time, offering more options for quiet and productive study spaces on BU's campus.
 
 ## Features
 
