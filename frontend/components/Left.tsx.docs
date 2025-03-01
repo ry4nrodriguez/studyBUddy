@@ -1,0 +1,226 @@
+/**
+ * Left Component
+ * 
+ * This component renders the sidebar that displays detailed information about study spaces.
+ * It shows a list of all buildings with their availability status, and when a building
+ * is selected, it displays room-specific schedules and availability information.
+ * 
+ * The component provides visual indicators for different availability statuses and
+ * formats time strings for better readability.
+ * 
+ * @module components/Left
+ */
+
+"use client";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
+
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
+/**
+ * Interface for the study space data format received from the backend
+ */
+interface DataFormat {
+    building: string;
+    building_code: string;
+    building_status: string;
+    rooms: {
+        [key: string]: {
+            roomNumber: string;
+            slots: { StartTime: string; EndTime: string; Status: string }[];
+        };
+    };
+    coords: [number, number];
+}
+
+/**
+ * Formats a time string from 24-hour format to 12-hour format with AM/PM
+ * 
+ * @param {string} timeString - Time string in "HH:MM:SS" format
+ * @returns {string} Formatted time string in "h:MM AM/PM" format
+ */
+function formatTime(timeString: string): string {
+    const options = {
+        hour: "numeric" as "numeric",
+        minute: "numeric" as "numeric",
+        hour12: true,
+    };
+    const time = new Date(`1970-01-01T${timeString}`);
+    return new Intl.DateTimeFormat("en-US", options).format(time);
+}
+
+/**
+ * Renders a styled label for a given availability status
+ * 
+ * @param {string} status - Availability status ("available", "upcoming", "unavailable")
+ * @returns {JSX.Element} Styled status label
+ */
+function statusLabel(status: string): JSX.Element {
+    return (
+        <div
+            className={`rounded-lg px-2 py-1 text-sm w-[fit-content]
+                ${status === "unavailable" && "bg-red-700/20 text-red-300/80"}
+                ${status === "available" && "bg-green-800/20 text-green-300/90"}
+                ${status === "upcoming" && "bg-amber-800/20 text-amber-300/90"}
+                `}
+        >
+            {status}
+        </div>
+    );
+}
+
+/**
+ * Renders a colored indicator for a given availability status
+ * 
+ * @param {string} status - Availability status ("available", "upcoming", "unavailable")
+ * @returns {JSX.Element} Colored status indicator
+ */
+function statusIndicator(status: string): JSX.Element {
+    return (
+        <div
+            className={`h-2 w-2 rounded-full
+                ${status === "unavailable" && "bg-red-400 shadow-[0px_0px_4px_2px_rgba(239,68,68,0.7)]"}
+                ${status === "available" && "bg-green-400 shadow-[0px_0px_4px_2px_rgba(34,197,94,0.7)]"}
+                ${status === "upcoming" && "bg-amber-400 shadow-[0px_0px_4px_2px_rgba(251,191,36,0.7)]"}
+                `}
+        />
+    );
+}
+
+/**
+ * Left component props interface
+ */
+interface LeftProps {
+    /** Array of study space data objects */
+    data: DataFormat[];
+    /** Currently selected building */
+    activeBuilding: string | null;
+    /** Function to update the selected building */
+    setActiveBuilding: (building: string | null) => void;
+}
+
+/**
+ * Left component that displays the sidebar with building information
+ * 
+ * @param {LeftProps} props - Component props
+ * @returns {JSX.Element} Rendered Left component
+ */
+export default function Left({
+    data,
+    activeBuilding,
+    setActiveBuilding,
+}: LeftProps): JSX.Element {
+    /**
+     * Handles clicking on a building in the list
+     * 
+     * @param {string} building - Building name
+     */
+    const handleBuildingClick = (building: string) => {
+        if (activeBuilding === building) {
+            setActiveBuilding(null);
+        } else {
+            setActiveBuilding(building);
+        }
+    };
+
+    return (
+        <div className="flex h-full w-full flex-col gap-4 p-4">
+            <div className="flex flex-col gap-2">
+                <h1 className="text-2xl font-bold">BU Study Spots</h1>
+                <p className="text-sm text-muted-foreground">
+                    Find available study spaces across campus
+                </p>
+            </div>
+
+            {data.length === 0 ? (
+                <Alert>
+                    <AlertDescription>
+                        Loading study spaces...
+                    </AlertDescription>
+                </Alert>
+            ) : (
+                <Accordion
+                    type="single"
+                    collapsible
+                    className="w-full"
+                    value={activeBuilding || undefined}
+                >
+                    {data.map((item) => (
+                        <AccordionItem
+                            key={item.building}
+                            value={item.building}
+                            className="border-b border-border/40"
+                        >
+                            <AccordionTrigger
+                                onClick={() => handleBuildingClick(item.building)}
+                                className="flex w-full items-center justify-between py-4 text-left"
+                            >
+                                <div className="flex items-center gap-2">
+                                    {statusIndicator(item.building_status)}
+                                    <div className="font-medium">
+                                        {item.building}
+                                    </div>
+                                </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="pb-4 pt-1">
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex items-center gap-2">
+                                        {statusLabel(item.building_status)}
+                                    </div>
+
+                                    {Object.keys(item.rooms).map((roomKey) => {
+                                        const room = item.rooms[roomKey];
+                                        return (
+                                            <div
+                                                key={roomKey}
+                                                className="flex flex-col gap-2"
+                                            >
+                                                <div className="font-medium">
+                                                    {roomKey}
+                                                </div>
+                                                <div className="flex flex-col gap-1">
+                                                    {room.slots.map(
+                                                        (slot, index) => (
+                                                            <div
+                                                                key={index}
+                                                                className="flex items-center justify-between rounded-lg border border-border/40 px-3 py-2"
+                                                            >
+                                                                <div className="flex items-center gap-2">
+                                                                    {statusIndicator(
+                                                                        slot.Status
+                                                                    )}
+                                                                    <div className="text-sm">
+                                                                        {formatTime(
+                                                                            slot.StartTime
+                                                                        )}{" "}
+                                                                        -{" "}
+                                                                        {formatTime(
+                                                                            slot.EndTime
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    {statusLabel(
+                                                                        slot.Status
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    )}
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                    ))}
+                </Accordion>
+            )}
+        </div>
+    );
+} 

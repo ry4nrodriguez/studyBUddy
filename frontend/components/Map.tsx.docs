@@ -1,0 +1,277 @@
+/**
+ * Map Component
+ * 
+ * This component renders an interactive map using Mapbox GL that displays study locations
+ * across the Boston University campus. It shows markers for each study space with colors
+ * indicating their availability status, and handles user interactions with the map.
+ * 
+ * The component also manages map styling based on time of day and displays the user's
+ * location when available.
+ * 
+ * @module components/Map
+ */
+
+"use client";
+import React from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+
+/**
+ * Interface for the study space data format received from the backend
+ */
+interface dataFormat {
+    building: string;
+    building_code: string;
+    building_status: string;
+    rooms: {
+        [key: string]: {
+            roomNumber: string;
+            slots: { StartTime: string; EndTime: string; Status: string }[];
+        };
+    };
+    coords: [number, number];
+    distance: number;
+}
+
+/**
+ * Light preset types for map styling based on time of day
+ */
+type LightPreset = "dawn" | "day" | "dusk" | "night";
+
+/**
+ * Map component props interface
+ */
+interface MapProps {
+    /** Array of study space data objects */
+    data: dataFormat[];
+    /** Callback function for handling marker clicks */
+    handleMarkerClick: (building: string) => void;
+    /** User's geographic coordinates (if available) */
+    userPos: [number, number] | null;
+}
+
+/**
+ * Map component that displays study locations on an interactive map
+ * 
+ * @param {MapProps} props - Component props
+ * @returns {JSX.Element} Rendered Map component
+ */
+export default function Map({
+    data,
+    handleMarkerClick,
+    userPos,
+}: MapProps): JSX.Element {
+    // References for map and container elements
+    const mapRef = useRef<mapboxgl.Map | null>(null);
+    const mapContainerRef = useRef<HTMLDivElement | null>(null);
+    const markersRef = useRef<mapboxgl.Marker[]>([]);
+
+    // Default map configuration
+    const defaultCenter: [number, number] = [-71.1097, 42.3505]; // Boston University center
+    const defaultZoom = 15;
+    const defaultPitch = 45;
+
+    // State for map properties
+    const [center, setCenter] = useState<[number, number]>(defaultCenter);
+    const [zoom, setZoom] = useState(defaultZoom);
+    const [pitch, setPitch] = useState(defaultPitch);
+    const [currentLightPreset, setCurrentLightPreset] = useState<LightPreset>("day");
+
+    /**
+     * Returns a CSS class string for the status indicator based on availability status
+     * 
+     * @param {string} status - Availability status ("available", "upcoming", "unavailable")
+     * @returns {string} CSS class string for the status indicator
+     */
+    function getColorByStatus(status: string): string {
+        switch (status) {
+            case "available":
+                return "h-2 w-2 rounded-full bg-green-400 shadow-[0px_0px_4px_2px_rgba(34,197,94,0.7)]";
+            case "upcoming":
+                return "h-2 w-2 rounded-full bg-amber-400 shadow-[0px_0px_4px_2px_rgba(251,191,36,0.7)]";
+            default:
+                return "h-2 w-2 rounded-full bg-red-400 shadow-[0px_0px_4px_2px_rgba(239,68,68,0.7)]";
+        }
+    }
+
+    /**
+     * Determines the appropriate map style based on the time of day
+     * 
+     * @returns {LightPreset} Light preset for the current time of day
+     */
+    const getLightPreset = useCallback((): LightPreset => {
+        const hour = new Date().getHours();
+        
+        if (hour >= 5 && hour < 8) return "dawn";
+        if (hour >= 8 && hour < 17) return "day";
+        if (hour >= 17 && hour < 20) return "dusk";
+        return "night";
+    }, []);
+
+    /**
+     * Returns the Mapbox style URL for the given light preset
+     * 
+     * @param {LightPreset} preset - Light preset ("dawn", "day", "dusk", "night")
+     * @returns {string} Mapbox style URL
+     */
+    const getMapStyle = (preset: LightPreset): string => {
+        switch (preset) {
+            case "dawn":
+                return "mapbox://styles/mapbox/navigation-day-v1";
+            case "day":
+                return "mapbox://styles/mapbox/light-v11";
+            case "dusk":
+                return "mapbox://styles/mapbox/navigation-day-v1";
+            case "night":
+                return "mapbox://styles/mapbox/dark-v11";
+            default:
+                return "mapbox://styles/mapbox/light-v11";
+        }
+    };
+
+    /**
+     * Initializes the map when the component mounts
+     */
+    useEffect(() => {
+        if (!mapContainerRef.current) return;
+
+        // Set Mapbox access token
+        mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "";
+
+        // Determine initial light preset based on time of day
+        const initialLightPreset = getLightPreset();
+        setCurrentLightPreset(initialLightPreset);
+
+        // Create new map instance
+        const map = new mapboxgl.Map({
+            container: mapContainerRef.current,
+            style: getMapStyle(initialLightPreset),
+            center: center,
+            zoom: zoom,
+            pitch: pitch,
+        });
+
+        // Add navigation controls
+        map.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+        // Store map reference
+        mapRef.current = map;
+
+        // Clean up on unmount
+        return () => {
+            map.remove();
+        };
+    }, []);
+
+    /**
+     * Updates map markers when data changes
+     */
+    useEffect(() => {
+        if (!mapRef.current || !data.length) return;
+
+        // Clear existing markers
+        markersRef.current.forEach((marker) => marker.remove());
+        markersRef.current = [];
+
+        // Create new markers for each study location
+        data.forEach((item) => {
+            const [lng, lat] = item.coords;
+            
+            // Create marker element
+            const el = document.createElement("div");
+            el.className = "relative cursor-pointer";
+            
+            // Create status indicator
+            const statusIndicator = document.createElement("div");
+            statusIndicator.className = getColorByStatus(item.building_status);
+            el.appendChild(statusIndicator);
+            
+            // Create popup with building information
+            const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+                `<div class="text-sm font-medium">${item.building}</div>
+                <div class="text-xs">${
+                    item.building_status === "available"
+                        ? "Open Now"
+                        : item.building_status === "upcoming"
+                        ? "Opening Soon"
+                        : "Closed"
+                }</div>`
+            );
+            
+            // Create and add marker to map
+            const marker = new mapboxgl.Marker(el)
+                .setLngLat([lng, lat])
+                .setPopup(popup)
+                .addTo(mapRef.current);
+            
+            // Add click event listener
+            el.addEventListener("click", () => {
+                handleMarkerClick(item.building);
+            });
+            
+            // Store marker reference
+            markersRef.current.push(marker);
+        });
+    }, [data, handleMarkerClick]);
+
+    /**
+     * Adds user location marker when user position is available
+     */
+    useEffect(() => {
+        if (!mapRef.current || !userPos) return;
+
+        // Create user location marker
+        const el = document.createElement("div");
+        el.className = "relative";
+        
+        // Create accuracy circle
+        const accuracyCircle = document.createElement("div");
+        accuracyCircle.className =
+            "absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/20 border border-blue-500/40 h-16 w-16";
+        el.appendChild(accuracyCircle);
+        
+        // Create user position dot
+        const userDot = document.createElement("div");
+        userDot.className =
+            "absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500 border-2 border-white h-4 w-4";
+        el.appendChild(userDot);
+        
+        // Create and add marker to map
+        new mapboxgl.Marker(el)
+            .setLngLat([userPos[1], userPos[0]])
+            .addTo(mapRef.current);
+        
+        // Fly to user location
+        mapRef.current.flyTo({
+            center: [userPos[1], userPos[0]],
+            zoom: 15,
+            speed: 1.5,
+        });
+    }, [userPos]);
+
+    /**
+     * Updates map style based on time of day
+     */
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const newLightPreset = getLightPreset();
+            if (newLightPreset !== currentLightPreset) {
+                setCurrentLightPreset(newLightPreset);
+                if (mapRef.current) {
+                    mapRef.current.setStyle(getMapStyle(newLightPreset));
+                }
+            }
+        }, 60000); // Check every minute
+        
+        return () => clearInterval(interval);
+    }, [currentLightPreset, getLightPreset]);
+
+    return (
+        <div
+            ref={mapContainerRef}
+            className="h-full w-full"
+            style={{ position: "relative" }}
+        />
+    );
+} 
