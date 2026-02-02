@@ -168,6 +168,16 @@ The application is designed to be deployed using Docker containers:
 - Backend: Flask application containerized with Docker
 - Frontend: Next.js application that can be deployed to various hosting platforms
 
+## Deploying to Vercel
+
+This repo is a monorepo: the Next.js app lives in `frontend/`. For Vercel to serve the app correctly:
+
+1. **Settings** → **General** → **Root Directory**: set to **`frontend`**.
+2. Turn **off** “Include files outside the root directory in the Build Step”.
+3. **Framework Preset**: must be **Next.js** (not “Other” or “None”).
+4. Leave **Build Command** and **Output Directory** empty (the repo uses `frontend/vercel.json`).
+5. **Redeploy** after saving. If you still get 404, check the deployment **Build Logs** to confirm `next build` ran and completed.
+
 ## Maintenance and Updates
 
 To update study space information:
