@@ -46,7 +46,8 @@ The application follows a client-server architecture:
 
 ### File Structure
 
-- `app.py`: Main Flask application with API endpoints and business logic
+- `app.py`: Entry point that creates and runs the Flask app
+- `studybuddy_backend/`: Backend package with routes and services
 - `bu_study_spaces.json`: Data file containing all study space information
 - `requirements.txt`: Python dependencies
 - `Dockerfile`: Container configuration for deployment
@@ -69,10 +70,10 @@ The main backend application file that handles API requests and processes study 
 
 ##### API Endpoints
 
-- `GET /api/test`: 
-  Simple test endpoint to verify the API is working.
+- `GET /api/health`:
+  Health check endpoint with `{ status, timestamp }`.
 
-- `GET/POST /api/open-classrooms`: 
+- `GET/POST /api/open-classrooms`:
   Main endpoint that returns all study spaces with their availability status.
   When called with POST and user coordinates, it also calculates and includes the distance to each location.
 

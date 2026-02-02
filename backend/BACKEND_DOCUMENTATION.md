@@ -6,7 +6,11 @@ The backend of BU Study Spots is built with Flask, a lightweight Python web fram
 
 ## File Structure
 
-- `app.py`: Main Flask application with API endpoints and business logic
+- `app.py`: Entry point that creates and runs the Flask app
+- `studybuddy_backend/`: Backend package (factory, routes, services)
+  - `__init__.py`: App factory and error handlers
+  - `routes/`: API route blueprints
+  - `services/`: Business logic (availability, distance, data loading)
 - `bu_study_spaces.json`: Data file containing all study space information
 - `requirements.txt`: Python dependencies
 - `Dockerfile`: Container configuration for deployment
@@ -101,18 +105,12 @@ def get_slot_status(current_time, start_time_str, end_time_str):
 
 #### API Endpoints
 
-##### `GET /api/test`
+##### `GET /api/health`
 
-Simple test endpoint to verify the API is working.
-
-```python
-@app.route('/api/test', methods=['GET'])
-def test():
-    return jsonify({"message": "Test route is working!"})
-```
+Health check endpoint for monitoring and load balancers.
 
 **Returns:**
-- JSON response with a success message
+- JSON response with `{ status, timestamp }`
 
 ##### `GET/POST /api/open-classrooms`
 
@@ -244,7 +242,7 @@ The backend is containerized using Docker for easy deployment.
 #### `Dockerfile`
 
 ```dockerfile
-FROM python:3.9-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
@@ -269,6 +267,14 @@ CMD ["python", "app.py"]
    ```
    docker run -p 8080:8080 bu-study-spots-backend
    ```
+
+#### Production Server (gunicorn)
+
+For production-style execution without Docker:
+
+```bash
+gunicorn -w 2 -b 0.0.0.0:8080 app:app
+```
 
 ## Development Guidelines
 

@@ -2,7 +2,7 @@
 FROM python:3.11-slim
 
 # Set the timezone environment variable
-ENV TZ=America/Toronto
+ENV TZ=America/New_York
 
 # Install tzdata package for timezone data
 RUN apt-get update && \
@@ -26,4 +26,4 @@ COPY . .
 EXPOSE 8080
 
 # Specify the command to run your app
-CMD ["python", "app.py"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:8080", "app:app"]

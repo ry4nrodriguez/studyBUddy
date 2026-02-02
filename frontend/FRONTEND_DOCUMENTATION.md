@@ -289,6 +289,7 @@ if (navigator.geolocation) {
 The application uses environment variables for configuration:
 
 - `NEXT_PUBLIC_MAPBOX_TOKEN`: Mapbox GL API token for map rendering
+- `NEXT_PUBLIC_BACKEND_URL`: Backend API base URL (default: `http://localhost:8080`)
 
 These are stored in the `.env.local` file and accessed via `process.env`.
 

@@ -1,48 +1,26 @@
 "use client";
 import React from "react";
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import type { BuildingData } from "@/lib/types";
 
-interface dataFormat {
-    building: string;
-    building_code: string;
-    building_status: string;
-    rooms: {
-        [key: string]: {
-            roomNumber: string;
-            slots: { StartTime: string; EndTime: string; Status: string }[];
-        };
-    };
-    coords: [number, number];
-    distance: number;
-}
-
-// Light presets based on time of day
-type LightPreset = "dawn" | "day" | "dusk" | "night";
+const DEFAULT_CENTER: [number, number] = [-71.1097, 42.3505];
+const DEFAULT_ZOOM = 16;
+const DEFAULT_PITCH = 45;
 
 export default function Map({
     data,
     handleMarkerClick,
     userPos,
 }: {
-    data: dataFormat[];
+    data: BuildingData[];
     handleMarkerClick: (building: string) => void;
-    userPos: any;
+    userPos: [number, number] | null;
 }) {
     const mapRef = useRef<mapboxgl.Map | null>(null);
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
     const markersRef = useRef<mapboxgl.Marker[]>([]);
-
-    // Default center coordinates for Boston University
-    const defaultCenter: [number, number] = [-71.1097, 42.3505];
-    const defaultZoom = 15;
-    const defaultPitch = 45;
-
-    const [center, setCenter] = useState<[number, number]>(defaultCenter);
-    const [zoom, setZoom] = useState(defaultZoom);
-    const [pitch, setPitch] = useState(defaultPitch);
-    const [currentLightPreset, setCurrentLightPreset] = useState<LightPreset>("day");
 
     function getColorByStatus(status: string) {
         switch (status) {
@@ -57,143 +35,107 @@ export default function Map({
         }
     }
 
-    // Function to determine light preset based on current time
-    const getLightPresetByTime = useCallback((): LightPreset => {
-        const hour = new Date().getHours();
-        
-        if (hour >= 5 && hour < 8) return "dawn";
-        if (hour >= 8 && hour < 17) return "day";
-        if (hour >= 17 && hour < 20) return "dusk";
-        return "night";
-    }, []);
-
     // Function to reset map to default position
     const resetMapPosition = useCallback(() => {
         if (mapRef.current) {
             mapRef.current.flyTo({
-                center: defaultCenter,
-                zoom: defaultZoom,
-                pitch: defaultPitch,
+                center: DEFAULT_CENTER,
+                zoom: DEFAULT_ZOOM,
+                pitch: DEFAULT_PITCH,
                 essential: true,
-                duration: 1000
+                duration: 1000,
             });
         }
-    }, [defaultCenter, defaultZoom, defaultPitch]);
-
-    // Function to update map lighting based on time
-    const updateMapLighting = useCallback(() => {
-        const newLightPreset = getLightPresetByTime();
-        
-        if (newLightPreset !== currentLightPreset) {
-            setCurrentLightPreset(newLightPreset);
-        }
-    }, [currentLightPreset, getLightPresetByTime]);
+    }, []);
 
     useEffect(() => {
-        if (!mapContainerRef.current) return;
+        if (!mapContainerRef.current || mapRef.current) return;
 
         // Initialize map with proper token and configuration
-        mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "pk.eyJ1Ijoicnk0bnJvZHJpZ3VleiIsImEiOiJjbTdwNm9vMG0wajczMmlxNGxrZHptODVmIn0.xzq0r5ewGo_Or7vnsgKWyg";
+        mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "";
         
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current as HTMLElement,
-            style: 'mapbox://styles/mapbox/standard',
-            center: center,
-            zoom: zoom,
-            pitch: pitch,
-            antialias: true // Enable antialiasing for smoother rendering
+            style: "mapbox://styles/mapbox/standard",
+            center: DEFAULT_CENTER,
+            zoom: DEFAULT_ZOOM,
+            pitch: DEFAULT_PITCH,
+            antialias: true, // Enable antialiasing for smoother rendering
+            config: {
+                basemap: {
+                    lightPreset: "night",
+                },
+            },
         });
-
-        // Set initial light preset based on time
-        const initialLightPreset = getLightPresetByTime();
-        setCurrentLightPreset(initialLightPreset);
-
-        // Wait for map to load before adding markers
-        mapRef.current.on("load", () => {
-            if (mapRef.current) {
-                // Add markers for each building after map is fully loaded
-                addMarkersToMap();
-            }
-        });
-
-        // Function to add markers to the map
-        const addMarkersToMap = () => {
-            // Clear any existing markers
-            markersRef.current.forEach(marker => marker.remove());
-            markersRef.current = [];
-            
-            // Add markers for each building
-            data.forEach((data) => {
-                const el = document.createElement("div");
-                el.className = getColorByStatus(data.building_status);
-
-                el.addEventListener("click", () => {
-                    const accordionItem = document.getElementById(
-                        data.building_code
-                    );
-
-                    setTimeout(() => {
-                        if (accordionItem) {
-                            accordionItem.scrollIntoView({
-                                behavior: "smooth",
-                                block: "start",
-                            });
-                        }
-                    }, 300);
-
-                    handleMarkerClick(data.building_code);
-                });
-
-                if (mapRef.current && data.coords) {
-                    const marker = new mapboxgl.Marker(el)
-                        .setLngLat([data.coords[0], data.coords[1]])
-                        .addTo(mapRef.current);
-                    
-                    markersRef.current.push(marker);
-                }
-            });
-
-            // Add user position marker
-            if (userPos && mapRef.current) {
-                const e2 = document.createElement("div");
-                e2.className =
-                    "h-3 w-3 border-[1.5px] border-zinc-50 rounded-full bg-blue-400 shadow-[0px_0px_4px_2px_rgba(14,165,233,1)]";
-
-                const userMarker = new mapboxgl.Marker(e2)
-                    .setLngLat([userPos[1], userPos[0]])
-                    .addTo(mapRef.current);
-                
-                markersRef.current.push(userMarker);
-            }
-        };
-
-        mapRef.current.on("move", () => {
-            if (mapRef.current) {
-                const mapCenter = mapRef.current.getCenter();
-                const mapZoom = mapRef.current.getZoom();
-                const mapPitch = mapRef.current.getPitch();
-
-                setCenter([mapCenter.lng, mapCenter.lat]);
-                setZoom(mapZoom);
-                setPitch(mapPitch);
-            }
-        });
-
-        // Set up interval to update lighting based on time
-        const lightingInterval = setInterval(updateMapLighting, 60000); // Check every minute
 
         return () => {
-            clearInterval(lightingInterval);
-            
             // Clean up markers
-            markersRef.current.forEach(marker => marker.remove());
+            markersRef.current.forEach((marker) => marker.remove());
             markersRef.current = [];
-            
+
             if (mapRef.current) {
                 mapRef.current.remove();
+                mapRef.current = null;
             }
         };
     }, []);
+
+    useEffect(() => {
+        const mapInstance = mapRef.current;
+        // Guard: map must exist and still be in the DOM (e.g. not removed by cleanup)
+        if (!mapInstance?.getContainer()?.parentNode) return;
+
+        markersRef.current.forEach((marker) => marker.remove());
+        markersRef.current = [];
+
+        data.forEach((building) => {
+            const el = document.createElement("button");
+            el.type = "button";
+            el.className = getColorByStatus(building.building_status);
+            el.setAttribute(
+                "aria-label",
+                `${building.building} (${building.building_code})`
+            );
+            el.setAttribute("title", building.building);
+
+            el.addEventListener("click", () => {
+                const accordionItem = document.getElementById(
+                    building.building_code
+                );
+
+                setTimeout(() => {
+                    if (accordionItem) {
+                        accordionItem.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
+                    }
+                }, 300);
+
+                handleMarkerClick(building.building_code);
+            });
+
+            if (building.coords) {
+                const marker = new mapboxgl.Marker(el)
+                    .setLngLat([building.coords[0], building.coords[1]])
+                    .addTo(mapInstance);
+
+                markersRef.current.push(marker);
+            }
+        });
+
+        if (userPos) {
+            const e2 = document.createElement("div");
+            e2.className =
+                "h-3 w-3 border-[1.5px] border-zinc-50 rounded-full bg-blue-400 shadow-[0px_0px_4px_2px_rgba(14,165,233,1)]";
+
+            const userMarker = new mapboxgl.Marker(e2)
+                .setLngLat([userPos[1], userPos[0]])
+                .addTo(mapInstance);
+
+            markersRef.current.push(userMarker);
+        }
+    }, [data, handleMarkerClick, userPos]);
 
     return (
         <div className="h-[60vh] sm:w-full sm:h-full relative bg-red-500/0 rounded-[20px] p-2 sm:p-0">
@@ -214,14 +156,6 @@ export default function Map({
                 </svg>
                 Reset View
             </button>
-            
-            {/* Light Preset Indicator */}
-            <div className="absolute top-4 left-4 bg-zinc-800/80 text-white px-3 py-1.5 rounded-lg text-sm font-medium z-10">
-                {currentLightPreset === "dawn" && "Dawn 🌅"}
-                {currentLightPreset === "day" && "Day ☀️"}
-                {currentLightPreset === "dusk" && "Dusk 🌆"}
-                {currentLightPreset === "night" && "Night 🌙"}
-            </div>
             
             {/* Legend */}
             <div className="bg-[#18181b]/90 absolute bottom-10 left-2 sm:bottom-8 sm:left-0 flex flex-col gap-2 m-1 py-2.5 p-2 rounded-[16px] z-10">

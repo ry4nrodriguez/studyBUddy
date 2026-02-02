@@ -4,11 +4,12 @@
   "description": "A web application to help students find open classrooms for studying",
   "private": true,
   "scripts": {
-    "install:all": "npm install && cd frontend && npm install && cd ../backend && python3 -m venv ../venv && source ../venv/bin/activate && pip install -r requirements.txt",
-    "dev:frontend": "cd frontend && npm run dev",
-    "dev:backend": "source venv/bin/activate && cd backend && python3 app.py",
-    "build:frontend": "cd frontend && npm run build",
-    "start:frontend": "cd frontend && npm run start"
+    "install:all": "npm install && npm --prefix frontend install && python3 -m pip install -r backend/requirements.txt -r backend/requirements-dev.txt",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "python3 backend/app.py",
+    "build": "npm run build:frontend",
+    "build:frontend": "npm --prefix frontend run build",
+    "start:frontend": "npm --prefix frontend run start"
   },
   "author": "Ryan Rodriguez",
   "license": "MIT",

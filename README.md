@@ -1,4 +1,4 @@
-# study BUddy
+# Study BUddy
 
 **study BUddy** is a web application designed to help Boston University students find open study spaces across campus. Students can use this web-app to locate available BU spaces in real-time, offering more options for quiet and productive study spaces on BU's campus.
 
@@ -22,8 +22,8 @@
 
 1. Clone the repository:
    ```
-   git clone https://github.com/ry4nrodriguez/bu-study-spots.git
-   cd bu-study-spots
+   git clone https://github.com/ry4nrodriguez/my-study-spots.git
+   cd my-study-spots
    ```
 
 2. Install dependencies:
@@ -31,7 +31,11 @@
    npm run install:all
    ```
 
-3. Start the development servers:
+3. Configure environment variables:
+   - Frontend: copy `frontend/.env.example` to `frontend/.env.local` and add your Mapbox token.
+   - Backend: copy `backend/.env.example` to `backend/.env`.
+
+4. Start the development servers:
    
    For the frontend:
    ```
@@ -43,7 +47,7 @@
    npm run dev:backend
    ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+5. Open your browser and navigate to `http://localhost:3000`
 
 ## Tech Stack
 
@@ -71,3 +75,16 @@ The study space data for Boston University was compiled from:
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Privacy
+
+Study BUddy uses your browser location to sort study spaces by proximity. Location
+data is sent to the backend only for sorting and is not stored.
+
+## Docker (Optional)
+
+Run both services with Docker Compose:
+
+```
+docker compose up --build
+```

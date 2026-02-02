@@ -7,19 +7,7 @@ import {
 } from "@/components/ui/accordion";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
-
-interface DataFormat {
-    building: string;
-    building_code: string;
-    building_status: string;
-    rooms: {
-        [key: string]: {
-            roomNumber: string;
-            slots: { StartTime: string; EndTime: string; Status: string }[];
-        };
-    };
-    coords: [number, number];
-}
+import type { BuildingData } from "@/lib/types";
 
 function formatTime(timeString: string) {
     const options = {
@@ -64,24 +52,43 @@ export default function Left({
     data,
     activeBuilding,
     setActiveBuilding,
+    errorMessage,
+    locationMessage,
 }: {
-    data: DataFormat[];
+    data: BuildingData[];
     activeBuilding: string | null;
     setActiveBuilding: (building: string) => void;
+    errorMessage?: string | null;
+    locationMessage?: string | null;
 }) {
-    if (data.length === 0 || !data) {
+    const list = Array.isArray(data) ? data : [];
+    if (list.length === 0) {
         return (
-            <div className="px-8 my-2">
+            <div className="px-4 sm:px-8 my-2">
                 <Alert className="mx-auto w-fit text-center">
                     <AlertDescription>
-                        Data not available after 10:00 PM
+                        {errorMessage || "No study spaces available right now."}
                     </AlertDescription>
                 </Alert>
             </div>
         );
     }
     return (
-        <div className="px-8">
+        <div className="px-4 sm:px-8">
+            {errorMessage ? (
+                <div className="my-2">
+                    <Alert className="mx-auto w-fit text-center">
+                        <AlertDescription>{errorMessage}</AlertDescription>
+                    </Alert>
+                </div>
+            ) : null}
+            {locationMessage ? (
+                <div className="my-2">
+                    <Alert className="mx-auto w-fit text-center">
+                        <AlertDescription>{locationMessage}</AlertDescription>
+                    </Alert>
+                </div>
+            ) : null}
             {day == 0 || day == 6 ? (
                 <div className="my-2">
                     <Alert className="mx-auto w-fit text-center">
@@ -99,7 +106,7 @@ export default function Left({
                 value={activeBuilding || ""}
                 onValueChange={(val) => setActiveBuilding(val)}
             >
-                {data.map((building) => (
+                {list.map((building) => (
                     <AccordionItem
                         id={building.building_code}
                         value={building.building_code}
@@ -107,7 +114,7 @@ export default function Left({
                         className=""
                     >
                         <AccordionTrigger>
-                            <div className="flex justify-between w-[95%] text-left text-lg group items-center">
+                            <div className="flex justify-between w-[95%] text-left text-base sm:text-lg group items-center">
                                 <div className="group-hover:underline underline-offset-8 pr-2">
                                     {building.building_code} -{" "}
                                     {building.building}
@@ -124,7 +131,7 @@ export default function Left({
                                         return (
                                             <div
                                                 key={roomNumber}
-                                                className="flex justify-between py-4 text-lg font-[family-name:var(--font-geist-mono)] text-[16px]"
+                                                className="flex justify-between py-4 text-sm sm:text-[16px] font-[family-name:var(--font-geist-mono)]"
                                             >
                                                 <div className="flex gap-4 items-center h-[fit-content]">
                                                     <div className="w-18">

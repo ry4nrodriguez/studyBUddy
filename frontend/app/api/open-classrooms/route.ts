@@ -1,18 +1,7 @@
 // /app/api/open-classrooms/route.ts
 
 import { NextResponse } from "next/server";
-
-interface dataFormat {
-    // Define the structure of the expected data here
-    building: string;
-    building_code: string;
-    rooms: {
-        roomNumber: string;
-        slots: { StartTime: string; EndTime: string; status: string }[];
-    }[];
-    coords: [number, number];
-    distance: number;
-}
+import type { BuildingData } from "@/lib/types";
 
 // Backend URL - change this to your production URL when deploying
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
@@ -42,7 +31,7 @@ export async function POST(req: Request) {
         }
 
         // Get data from backend
-        const data: dataFormat[] = await response.json();
+        const data: BuildingData[] = await response.json();
         return NextResponse.json(data);
     } catch (error) {
         console.error("Error in route:", error);
@@ -72,7 +61,7 @@ export async function GET() {
         }
 
         // Get data from backend
-        const data: dataFormat[] = await response.json();
+        const data: BuildingData[] = await response.json();
         return NextResponse.json(data);
     } catch (error) {
         console.error("Error in GET route:", error);
