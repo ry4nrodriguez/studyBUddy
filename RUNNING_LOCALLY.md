@@ -1,39 +1,19 @@
 # Study BUddy - Local Development Setup
 
-### Access URLs
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8080
-
-### Services Status
-✅ Backend (Flask) - Running on port 8080
-✅ Frontend (Next.js) - Running on port 3000
+### Access URL
+- **Application**: http://localhost:3000
 
 ---
 
-## Quick Start Commands
+## Quick Start
 
-### Start Both Servers
-
-**Terminal 1 - Backend:**
-```bash
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-python app.py
-```
-
-**Terminal 2 - Frontend:**
 ```bash
 cd frontend
+npm install
 npm run dev
 ```
 
-### Or Use Root Commands
-```bash
-# From project root
-npm run dev:backend   # Start backend
-npm run dev:frontend  # Start frontend
-```
+That's it! The frontend is self-contained and includes all backend logic.
 
 ---
 
@@ -41,9 +21,8 @@ npm run dev:frontend  # Start frontend
 
 ### Environment setup
 1. Copy `frontend/.env.example` to `frontend/.env.local`
-2. Copy `backend/.env.example` to `backend/.env`
 
-### ⚠️ Mapbox Token Required
+### Mapbox Token Required
 The frontend uses a Mapbox token for the map. You need to:
 
 1. Get a free Mapbox token from https://www.mapbox.com/
@@ -68,33 +47,47 @@ The frontend uses a Mapbox token for the map. You need to:
 
 ---
 
-## Stopping the Servers
+## Stopping the Server
 
-Press `CTRL+C` in each terminal to stop the servers.
+Press `CTRL+C` in the terminal to stop the server.
 
 ---
 
-## Next Steps
+## Using Docker
 
-1. **Get Mapbox Token**: Required for map to work
-2. **Test Location**: Allow browser location access for distance sorting
-3. **Explore Data**: Check out the 24+ study spaces across BU campus
+You can also run the frontend with Docker Compose:
+
+```bash
+docker-compose up frontend
+```
 
 ---
 
 ## Troubleshooting
 
-### Frontend won't connect to backend
-- Check backend is running on port 8080
-- Check `frontend/.env.local` has correct `NEXT_PUBLIC_BACKEND_URL`
-
 ### Map not showing
 - Verify you have a valid Mapbox token in `frontend/.env.local`
 - Check browser console for errors
 
-### Backend errors
-- Make sure virtual environment is activated: `source backend/.venv/bin/activate`
-- Check `backend/bu_study_spaces.json` exists
+### Data not loading
+- Check `frontend/data/bu_study_spaces.json` exists
+- Check browser console for API errors
+
+---
+
+## Legacy Backend (Optional)
+
+The `backend/` folder contains a standalone Flask API that can be run separately:
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python app.py
+```
+
+This is not required for normal development as the frontend is self-contained.
 
 ---
 

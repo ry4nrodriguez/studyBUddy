@@ -1,5 +1,10 @@
 # BU Study Spots - Backend Documentation
 
+> **Note:** This Flask backend is now **optional**. The frontend includes a self-contained
+> API route (`frontend/app/api/open-classrooms/route.ts`) that provides the same functionality.
+> For Vercel deployment, the frontend API route is used and no separate backend is needed.
+> This backend remains available for standalone deployment scenarios.
+
 ## Overview
 
 The backend of BU Study Spots is built with Flask, a lightweight Python web framework. It serves as the API layer that provides study space data to the frontend application. The backend is responsible for processing the raw study space data, determining the availability status of each location based on the current time, and calculating distances between the user and study spaces when user location is provided.

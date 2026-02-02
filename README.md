@@ -1,68 +1,55 @@
 # Study BUddy
 
-**study BUddy** is a web application designed to help Boston University students find open study spaces across campus. Students can use this web-app to locate available BU spaces in real-time, offering more options for quiet and productive study spaces on BU's campus.
+**Study BUddy** is a web application designed to help Boston University students find open study spaces across campus. Students can use this web-app to locate available BU spaces in real-time, offering more options for quiet and productive study spaces on BU's campus.
 
 ## Features
 
--   Displays open study spaces across Boston University's campus.
--   Sorts study spaces based on proximity to the user's current location.
--   Provides up-to-date availability information for each study space.
--   Interactive map to visualize study space locations on BU's campus.
--   List view of study spaces with real-time status updates.
+- Displays open study spaces across Boston University's campus.
+- Sorts study spaces based on proximity to the user's current location.
+- Provides up-to-date availability information for each study space.
+- Interactive map to visualize study space locations on BU's campus.
+- List view of study spaces with real-time status updates.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js (v18 or higher)
-- Python (v3.8 or higher)
-- npm or yarn
+- Node.js (v20 or higher)
+- npm
 
 ### Installation
 
 1. Clone the repository:
-   ```
+   ```bash
    git clone https://github.com/ry4nrodriguez/my-study-spots.git
    cd my-study-spots
    ```
 
-2. Install dependencies:
-   ```
-   npm run install:all
+2. Install frontend dependencies:
+   ```bash
+   cd frontend
+   npm install
    ```
 
 3. Configure environment variables:
-   - Frontend: copy `frontend/.env.example` to `frontend/.env.local` and add your Mapbox token.
-   - Backend: copy `backend/.env.example` to `backend/.env`.
+   - Copy `frontend/.env.example` to `frontend/.env.local`
+   - Add your Mapbox token (get one free at https://www.mapbox.com/)
 
-4. Start the development servers:
-   
-   For the frontend:
-   ```
-   npm run dev:frontend
-   ```
-   
-   For the backend:
-   ```
-   npm run dev:backend
+4. Start the development server:
+   ```bash
+   npm run dev
    ```
 
 5. Open your browser and navigate to `http://localhost:3000`
 
 ## Tech Stack
 
-### Frontend
-
--   **Next.js**: Handles server-side rendering and provides a robust React-based framework for building the frontend UI.
--   **Mapbox GL**: Provides the interactive map to display study space locations on Boston University's campus.
--   **Tailwind CSS**: Used for styling the UI components with utility-first CSS for responsive and consistent design.
--   **Geolocation API**: Retrieves the user's current location to sort study spaces by proximity.
-
-### Backend
-
--   **Flask**: A lightweight Python web framework to handle API requests and logic for retrieving and processing study space availability data.
--   **JSON Data**: Local JSON file containing Boston University study space information.
--   **Haversine Formula**: Implemented in the backend to calculate the distance between the user and study space locations based on coordinates.
+- **Next.js**: React framework with API routes for the complete application
+- **TypeScript**: Type-safe JavaScript for frontend and API development
+- **Mapbox GL**: Interactive map to display study space locations
+- **Tailwind CSS**: Utility-first CSS for responsive design
+- **Radix UI**: Accessible UI component library
+- **Geolocation API**: Retrieves the user's location to sort by proximity
 
 ## Data Sources
 
@@ -72,6 +59,10 @@ The study space data for Boston University was compiled from:
 - On-site verification of study spaces
 - Building hours information from departmental websites
 
+## Deployment
+
+The application is deployed on Vercel. See [DOCUMENTATION.md](DOCUMENTATION.md) for deployment instructions.
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
@@ -79,12 +70,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Privacy
 
 Study BUddy uses your browser location to sort study spaces by proximity. Location
-data is sent to the backend only for sorting and is not stored.
+data is processed in the API route and is not stored.
 
 ## Docker (Optional)
 
-Run both services with Docker Compose:
+Run the frontend with Docker Compose:
 
-```
-docker compose up --build
+```bash
+docker compose up frontend
 ```

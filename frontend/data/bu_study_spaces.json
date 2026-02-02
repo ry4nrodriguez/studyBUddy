@@ -1,0 +1,728 @@
+[
+  {
+    "name": "Mugar Memorial Library",
+    "code": "MUG",
+    "coordinates": [-71.10757, 42.35104],
+    "address": "775 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "1st Floor",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "02:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "2nd Floor",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "02:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "3rd Floor",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "02:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "4th Floor",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "02:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "5th Floor",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "02:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "6th Floor",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "02:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+      
+  {
+    "name": "George Sherman Union",
+    "code": "GSU",
+    "coordinates": [-71.10877, 42.35119],
+    "address": "775 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Basement Study Lounge",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Ziskind Lounge (2nd Floor)",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "06:00:00",
+                "EndTime": "00:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Deans Lounge (3rd Floor)",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "06:00:00",
+                "EndTime": "00:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Photonics Center",
+    "code": "PHO",
+    "coordinates": [-71.10600, 42.34922],
+    "address": "8 St Mary's St, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "9th Floor Collaboration Space",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Questrom School of Business",
+    "code": "QSB",
+    "coordinates": [-71.09957, 42.34969],
+    "address": "595 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Hariri Atrium (1st Floor)",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "23:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Team Rooms",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Pardee Library",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "23:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "4th Floor Graduate Study Rooms",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Kilachand Hall Study Lounge",
+    "code": "KCH",
+    "coordinates": [-71.09653, 42.35033],
+    "address": "91 Bay State Road, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "9th Floor Study Lounge",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "00:00:00",
+                "EndTime": "23:59:59"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "College of Arts & Sciences",
+    "code": "CAS",
+    "coordinates": [-71.10480, 42.35023],
+    "address": "725 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "CAS Think Tank (Room 105)",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "21:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "CAS 211",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "23:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Yawkey Center for Student Services",
+    "code": "YAW",
+    "coordinates": [-71.09787, 42.34979],
+    "address": "100 Bay State Road, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Study Lounge",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "17:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Ingalls Engineering Resource Center",
+    "code": "ING",
+    "coordinates": [-71.10288, 42.34862],
+    "address": "44 Cummington Mall, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Main Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "23:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "StuVi II Study Lounge",
+    "code": "SV2",
+    "coordinates": [-71.11781, 42.35339 ],
+    "address": "33 Harry Agganis Way, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "26th Floor Study Lounge",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "00:00:00",
+                "EndTime": "23:59:59"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Wheelock College",
+    "code": "WHL",
+    "coordinates": [-71.10088, 42.34973],
+    "address": "2 Silber Way, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Pickering Educational Resources Library",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "17:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Science & Engineering Library",
+    "code": "SEL",
+    "coordinates": [-71.10080, 42.34860],
+    "address": "38 Cummington Mall, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Main Library",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "17:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Howard Thurman Center",
+    "code": "HTC",
+    "coordinates": [-71.11140, 42.35000],
+    "address": "808 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "21:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "HoJo",
+    "code": "HJO",
+    "coordinates": [-71.09853, 42.34955],
+    "address": "575 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "8th Floor Study Lounge",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "00:00:00",
+                "EndTime": "23:59:59"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Duan Family Center for Computing & Data Science",
+    "code": "CDS",
+    "coordinates": [-71.10311, 42.34991],
+    "address": "665 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "4th-17th Floors",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "19:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Stone Science Library",
+    "code": "STO",
+    "coordinates": [-71.10362, 42.35013],
+    "address": "725 Commonwealth Avenue, Room 440, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Room 440",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "17:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "School of Theology Library",
+    "code": "STH",
+    "coordinates": [-71.10706, 42.35051],
+    "address": "745 Commonwealth Avenue, 2nd Floor, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "2nd Floor Library",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "College of General Studies",
+    "code": "CGS",
+    "coordinates": [-71.11464, 42.35150],
+    "address": "871 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "17:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Buick Street Market & Cafe",
+    "code": "BSM",
+    "coordinates": [-71.11559, 42.35211],
+    "address": "10 Buick Street, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "00:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Sargent College",
+    "code": "SAR",
+    "coordinates": [-71.10194, 42.34977],
+    "address": "635 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Makechnie Study Center (Room 237)",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "19:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Marciano Commons",
+    "code": "MRC",
+    "coordinates": [-71.09784, 42.35012],
+    "address": "100 Bay State Road, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Dining Hall Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "21:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Weekend Late Night",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "21:30:00",
+                "EndTime": "01:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Bay State Underground",
+    "code": "BSU",
+    "coordinates": [-71.09791, 42.34977],
+    "address": "100 Bay State Road, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "21:00:00",
+                "EndTime": "01:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Warren Towers",
+    "code": "WAR",
+    "coordinates": [-71.10403, 42.34950],
+    "address": "700 Commonwealth Avenue, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Weekend Late Night",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "21:30:00",
+                "EndTime": "01:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "West Campus Study Spaces",
+    "code": "WCS",
+    "coordinates": [-71.1203468, 42.3531346], 
+    "address": "275 Babcock Street, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Claflin Hall",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "21:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Sleeper Hall",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "21:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Rich Hall",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "07:00:00",
+                "EndTime": "21:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Weekend Late Night",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "21:30:00",
+                "EndTime": "01:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Fenway Campus Center",
+    "code": "FCC",
+    "coordinates": [-71.10517, 42.34299],
+    "address": "150 Riverway, Boston, MA 02215",
+    "rooms": [
+      {
+        "roomNumber": "Main Study Area",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "08:00:00",
+                "EndTime": "22:00:00"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "roomNumber": "Group Study Rooms",
+        "schedule": [
+          {
+            "Slots": [
+              {
+                "StartTime": "09:00:00",
+                "EndTime": "21:00:00"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+] 

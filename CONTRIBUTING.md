@@ -6,34 +6,47 @@ expectations for contributors.
 ## Development setup
 
 1. Install prerequisites:
-   - Node.js 18+
-   - Python 3.8+
+   - Node.js 20+
 2. Install dependencies:
-   - `npm run install:all`
+   ```bash
+   cd frontend
+   npm install
+   ```
 3. Configure env vars:
    - Copy `frontend/.env.example` → `frontend/.env.local`
-   - Copy `backend/.env.example` → `backend/.env`
+   - Add your Mapbox token
 
 ## Running locally
 
-- Frontend: `npm run dev:frontend` (http://localhost:3000)
-- Backend: `npm run dev:backend` (http://localhost:8080)
+```bash
+cd frontend
+npm run dev
+```
+
+The app runs at http://localhost:3000. No separate backend is needed.
 
 ## Code style
 
-- Frontend: `npm run lint` (from `frontend/`)
-- Backend: keep PEP 8 conventions; use clear function names and docstrings
+- Run `npm run lint` from `frontend/` before committing
+- Use TypeScript types for all new code
+- Follow existing patterns for components and API routes
 
 ## Tests
 
-- Backend: `python -m pytest` (from `backend/`)
-- Frontend: `npm run test` (from `frontend/`, if configured)
+```bash
+cd frontend
+npm run test
+```
 
 ## Pull requests
 
 - Keep PRs focused and small when possible.
 - Include clear descriptions and testing steps.
 - Avoid committing `.env` or other secrets.
+
+## Updating study space data
+
+Edit `frontend/data/bu_study_spaces.json` to add or modify study locations.
 
 ## Reporting issues
 
