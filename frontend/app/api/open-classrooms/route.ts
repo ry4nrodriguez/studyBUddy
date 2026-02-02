@@ -3,8 +3,11 @@
 import { NextResponse } from "next/server";
 import type { BuildingData } from "@/lib/types";
 
-// Backend URL - change this to your production URL when deploying
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8080";
+// Backend URL - set BACKEND_URL in Vercel for production
+const BACKEND_URL =
+    process.env.BACKEND_URL ||
+    process.env.NEXT_PUBLIC_BACKEND_URL ||
+    "http://localhost:8080";
 
 export async function POST(req: Request) {
     try {

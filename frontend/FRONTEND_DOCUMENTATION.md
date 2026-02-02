@@ -289,9 +289,12 @@ if (navigator.geolocation) {
 The application uses environment variables for configuration:
 
 - `NEXT_PUBLIC_MAPBOX_TOKEN`: Mapbox GL API token for map rendering
-- `NEXT_PUBLIC_BACKEND_URL`: Backend API base URL (default: `http://localhost:8080`)
+- `BACKEND_URL`: Backend API base URL for server-side calls (default: `http://localhost:8080`)
+- `NEXT_PUBLIC_BACKEND_URL`: Optional fallback for local development
 
-These are stored in the `.env.local` file and accessed via `process.env`.
+These are stored in the `.env.local` file and accessed via `process.env`. On Vercel,
+set `BACKEND_URL` in Project Settings → Environment Variables so the API route can
+reach the deployed backend.
 
 ## Building and Deployment
 
