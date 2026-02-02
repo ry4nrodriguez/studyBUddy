@@ -1,4 +1,5 @@
 import json
+from datetime import time
 
 from studybuddy_backend import create_app
 
@@ -44,6 +45,7 @@ def test_open_classrooms_returns_buildings(tmp_path):
 
     app = create_app()
     app.config["DATA_PATH"] = str(data_path)
+    app.config["CURRENT_TIME_OVERRIDE"] = time(12, 0)  # noon, within 09:00–17:00 slot
     client = app.test_client()
 
     response = client.get("/api/open-classrooms")
